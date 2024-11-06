@@ -1,0 +1,32 @@
+header {
+
+  .main-nav {
+    padding: 2rem 4rem;
+
+    &-items {
+      position: relative;
+      display: inline-flex;
+      list-style: none;
+      padding: 1rem;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      border-bottom: 1px solid rgba($primary-color, .4);
+    }
+
+    .nav-item {
+      position: relative;
+      font-size: 1.2rem;
+
+      &-link {
+        transition: color 0.3s ease;
+        white-space: nowrap;
+
+        &.active {
+          color: $button-bg;
+        }
+      }
+    }
+  }
+}

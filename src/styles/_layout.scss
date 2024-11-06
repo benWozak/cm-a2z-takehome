@@ -1,7 +1,7 @@
-$primary-color: #646cff;
-$secondary-color: #535bf2;
-$dark-bg: #242424;
-$light-bg: #ffffff;
+$primary-color: #b3b3b3;
+$secondary-color: #5c94cb;
+$bg-dark: #242424;
+$bg-light: #ffffff;
 $button-bg: #1a1a1a;
 $light-button-bg: #f9f9f9;
 
@@ -12,7 +12,7 @@ $light-button-bg: #f9f9f9;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: $dark-bg;
+  background-color: $bg-dark;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,7 +23,8 @@ $light-button-bg: #f9f9f9;
 a {
   font-weight: 500;
   color: $primary-color;
-  text-decoration: inherit;
+  text-decoration: none;
+  letter-spacing: 0.5px;
   
   &:hover {
     color: $secondary-color;
@@ -32,10 +33,6 @@ a {
 
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -43,36 +40,6 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-  
-  &:hover {
-    filter: drop-shadow(0 0 2em rgba($primary-color, 0.667));
-  }
-  
-  &.vanilla:hover {
-    filter: drop-shadow(0 0 2em rgba(#3178c6, 0.667));
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 button {
@@ -99,11 +66,11 @@ button {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: $light-bg;
+    background-color: $bg-light;
   }
   
   a:hover {
-    color: #747bff;
+    color: $secondary-color;
   }
   
   button {
