@@ -7,6 +7,8 @@ interface NavigationData {
   cities: NavItem[];
 }
 
+const WINDOW_WIDTH_BREAKPOINT = 1081;
+
 export async function setupNavigation(navElement: HTMLUListElement) {
   try {
     const response = await fetch(new URL('../api/navigation.json', import.meta.url).href);
@@ -83,7 +85,7 @@ export async function setupNavigation(navElement: HTMLUListElement) {
 
     const navContainer = navElement.closest('.main-nav');
     if (navContainer) {
-      if (window.innerWidth <= 1081) {
+      if (window.innerWidth <= WINDOW_WIDTH_BREAKPOINT) {
         createScrollButtons(navContainer, navElement);
       }
       
@@ -94,9 +96,9 @@ export async function setupNavigation(navElement: HTMLUListElement) {
         resizeTimeout = window.setTimeout(() => {
           const existingButtons = navContainer.querySelectorAll('.scroll-button');
           
-          if (window.innerWidth <= 1081 && existingButtons.length === 0) {
+          if (window.innerWidth <= WINDOW_WIDTH_BREAKPOINT && existingButtons.length === 0) {
             createScrollButtons(navContainer, navElement);
-          } else if (window.innerWidth > 1081 && existingButtons.length > 0) {
+          } else if (window.innerWidth > WINDOW_WIDTH_BREAKPOINT && existingButtons.length > 0) {
             existingButtons.forEach(button => button.remove());
           }
           
@@ -122,14 +124,21 @@ function updateIndicator(activeLink: HTMLAnchorElement) {
   if (!listItem) return;
 
   const linkEl = activeLink.getBoundingClientRect();
-  const navEl = activeLink.closest('.main-nav-items')?.getBoundingClientRect();
+  const navEl = activeLink.closest('.main-nav-items');
   
   if (navEl) {
-    const containerLeft = navEl.left;
+    const navRect = navEl.getBoundingClientRect();
+    const containerLeft = navRect.left;
     const linkLeft = linkEl.left;
     
     indicator.style.width = `${linkEl.width}px`;
-    indicator.style.transform = `translateX(${linkLeft - containerLeft}px)`;
+    
+    if (window.innerWidth <= WINDOW_WIDTH_BREAKPOINT) {
+      const scrollOffset = navEl.scrollLeft;
+      indicator.style.transform = `translateX(${(linkLeft - containerLeft) + scrollOffset}px)`;
+    } else {
+      indicator.style.transform = `translateX(${linkLeft - containerLeft}px)`;
+    }
   }
 }
 
@@ -145,6 +154,16 @@ function createScrollButtons(navContainer: Element, navList: HTMLUListElement) {
   
   leftButton.setAttribute('aria-label', 'Scroll left');
   rightButton.setAttribute('aria-label', 'Scroll right');
+
+  navList.addEventListener('scroll', () => {
+    updateScrollButtons();
+    
+    // Update indicator position when scrolling
+    const currentActive = navList.querySelector('.nav-item-link.active') as HTMLAnchorElement;
+    if (currentActive) {
+      updateIndicator(currentActive);
+    }
+  });
   
   navContainer.appendChild(leftButton);
   navContainer.appendChild(rightButton);

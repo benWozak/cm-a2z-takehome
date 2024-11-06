@@ -34,7 +34,7 @@ const greetings: GreetMapping = {
 };
 
 export async function setupTimeDisplay(clockElement: HTMLElement) {
-  let currentCity = 'cupertino'; // default city
+  let currentCity: string | null = null;
   let updateInterval: number | null = null;
 
   function updateTime() {
@@ -43,28 +43,44 @@ export async function setupTimeDisplay(clockElement: HTMLElement) {
     }
 
     const updateDisplay = () => {
+      // If no city is selected, show the prompt
+      if (!currentCity) {
+        clockElement.innerHTML = `
+          <div class="time">
+            <h2>Welcome! <span class="waving-hand">👋</span></h2>
+            <p class="current-day">Please select a city above to view local time</p>
+          </div>
+        `;
+        return;
+      }
+
       const timeZone = cityTimeZones[currentCity];
       const time = dayjs().tz(timeZone);
       
       clockElement.innerHTML = `
         <div class="time">
           <h2>${greetings[currentCity]} <span class="waving-hand">👋</span> </h2>
-          <div class="current-time">${time.format('h:mm:ss A')}</div>
+          <time datetime="${time}" class="current-time">${time.format('h:mm:ss A')}</time>
           <div class="current-day">${time.format('dddd MMMM DD')}</div>
         </div>
       `;
     };
 
     updateDisplay();
-    updateInterval = window.setInterval(updateDisplay, 1000);
+    
+    if (currentCity) {
+      updateInterval = window.setInterval(updateDisplay, 1000);
+    }
   }
 
   function updateCityFromUrl() {
     const path = window.location.pathname.replace('/', '');
     if (path && cityTimeZones[path]) {
       currentCity = path;
-      updateTime();
+    } else {
+      currentCity = null;
     }
+    updateTime();
   }
 
   try {

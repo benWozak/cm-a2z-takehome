@@ -73,6 +73,7 @@ header {
       border-bottom: 1px solid rgba(179, 179, 179, 0.2);
 
       @media (max-width: 1081px) {
+        position: relative;
         justify-content: flex-start;
         overflow-x: auto;
         scroll-behavior: smooth;
@@ -117,6 +118,10 @@ header {
       transition: all 0.3s ease;
       opacity: 0;
       pointer-events: none;
+
+      @media (max-width: 1081px) {
+        bottom: 0;     
+      }
     }
   }
 }
