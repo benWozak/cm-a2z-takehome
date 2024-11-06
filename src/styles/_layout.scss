@@ -1,9 +1,4 @@
-$primary-color: #b3b3b3;
-$secondary-color: #5c94cb;
-$bg-dark: #242424;
-$bg-light: #ffffff;
-$button-bg: #1a1a1a;
-$light-button-bg: #f9f9f9;
+@use 'variables' as *;  
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

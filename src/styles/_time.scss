@@ -1,9 +1,4 @@
-$primary-color: #b3b3b3;
-$secondary-color: #5e94cc;
-$bg-dark: #242424;
-$bg-light: #ffffff;
-$button-bg: #1a1a1a;
-$light-button-bg: #f9f9f9;
+@use 'variables' as *;  
 
 .time-container {
   display: flex;

@@ -1,28 +1,18 @@
-/**
+@use 'variables' as *;
+@use 'sass:map';  
 
-    My compiler warns me that @import is being dropped in favour of using
-    @use and @forward instead. With this change however, it did not carry 
-    over my variables from layout. I have copied them over to this file, 
-    and left this message here in the event that I have run out of time
-    and did not get around to investigating the issue.
-
-    reference: https://sass-lang.com/documentation/breaking-changes/import/
-
-**/
-
-$primary-color: #b3b3b3;
-$secondary-color: #5e94cc;
-$bg-dark: #242424;
-$bg-light: #ffffff;
-$button-bg: #1a1a1a;
-$light-button-bg: #f9f9f9;
+@mixin breakpoint($size) {
+  @media (max-width: map.get($breakpoints, $size)) {
+    @content;
+  }
+}
 
 header {
   .main-nav {
     position: relative;
     padding: 2rem 4rem;
 
-    @media (max-width: 1081px) {
+    @include breakpoint('lg') {
       padding: 2rem 1rem;
 
       .scroll-button {
@@ -72,7 +62,7 @@ header {
       gap: 4rem;
       border-bottom: 1px solid rgba(179, 179, 179, 0.2);
 
-      @media (max-width: 1081px) {
+      @include breakpoint('lg') {
         position: relative;
         justify-content: flex-start;
         overflow-x: auto;
@@ -119,7 +109,7 @@ header {
       opacity: 0;
       pointer-events: none;
 
-      @media (max-width: 1081px) {
+      @include breakpoint('lg') {
         bottom: 0;     
       }
     }

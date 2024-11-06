@@ -24,12 +24,12 @@ const cityTimeZones: TimeZoneMapping = {
 };
 
 const greetings: GreetMapping = {
-  'cupertino': 'What&apos;s up my dude',
-  'new-york-city': 'Hello there',
-  'london': 'Great day, innit',
+  'cupertino': 'What&apos;s up bro?',
+  'new-york-city': 'Hello there!',
+  'london': 'Great day, innit?',
   'amsterdam': 'Hoe gaat het!',
-  'tokyo': 'こんにちは',
-  'hong-kong': '你好',
+  'tokyo': 'こんにちは！',
+  'hong-kong': '你好嗎?',
   'sydney': 'G&apos;day mate!'
 };
 
