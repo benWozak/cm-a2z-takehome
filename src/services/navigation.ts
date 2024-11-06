@@ -9,7 +9,7 @@ interface NavigationData {
 
 export async function setupNavigation(navElement: HTMLUListElement) {
   try {
-    const response = await fetch('/src/api/navigation.json');
+    const response = await fetch(new URL('../api/navigation.json', import.meta.url).href);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "path": "^0.12.7",
     "sass": "^1.80.6",
     "typescript": "~5.6.2",
     "vite": "^5.4.10"
