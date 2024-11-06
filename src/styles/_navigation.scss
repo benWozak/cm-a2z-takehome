@@ -19,7 +19,48 @@ $light-button-bg: #f9f9f9;
 
 header {
   .main-nav {
+    position: relative;
     padding: 2rem 4rem;
+
+    @media (max-width: 1081px) {
+      padding: 2rem 1rem;
+
+      .scroll-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: $light-button-bg;
+        color: $bg-dark;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 4rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: opacity 0.3s ease;
+
+        &.hidden {
+          opacity: 0;
+          pointer-events: none;
+        }
+        
+        &:hover {
+          background: rgba($secondary-color, 0.7);
+          color: rgba($bg-dark, 0.7);
+        }
+        
+        &--left {
+          left: 0;
+        }
+        
+        &--right {
+          right: 0;
+        }
+      }
+    }
 
     &-items {
       position: relative;
@@ -30,6 +71,19 @@ header {
       justify-content: center;
       gap: 4rem;
       border-bottom: 1px solid rgba(179, 179, 179, 0.2);
+
+      @media (max-width: 1081px) {
+        justify-content: flex-start;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none; // Firefox
+        -ms-overflow-style: none; // IE and Edge
+        padding: 1rem 2rem;
+        
+        &::-webkit-scrollbar {
+          display: none; // Chrome, Safari, Opera
+        }
+      }
     }
 
     .nav-item {

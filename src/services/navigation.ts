@@ -80,6 +80,33 @@ export async function setupNavigation(navElement: HTMLUListElement) {
         }
       }, 100);
     });
+
+    const navContainer = navElement.closest('.main-nav');
+    if (navContainer) {
+      if (window.innerWidth <= 1081) {
+        createScrollButtons(navContainer, navElement);
+      }
+      
+      // Add/remove scroll buttons on resize
+      let resizeTimeout: number;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = window.setTimeout(() => {
+          const existingButtons = navContainer.querySelectorAll('.scroll-button');
+          
+          if (window.innerWidth <= 1081 && existingButtons.length === 0) {
+            createScrollButtons(navContainer, navElement);
+          } else if (window.innerWidth > 1081 && existingButtons.length > 0) {
+            existingButtons.forEach(button => button.remove());
+          }
+          
+          const currentActive = navElement.querySelector('.nav-item-link.active') as HTMLAnchorElement;
+          if (currentActive) {
+            updateIndicator(currentActive);
+          }
+        }, 100);
+      });
+    }
     
   } catch (error) {
     console.error('Error setting up navigation:', error);
@@ -104,4 +131,51 @@ function updateIndicator(activeLink: HTMLAnchorElement) {
     indicator.style.width = `${linkEl.width}px`;
     indicator.style.transform = `translateX(${linkLeft - containerLeft}px)`;
   }
+}
+
+function createScrollButtons(navContainer: Element, navList: HTMLUListElement) {
+  const leftButton = document.createElement('button');
+  const rightButton = document.createElement('button');
+  
+  leftButton.className = 'scroll-button scroll-button--left hidden';
+  rightButton.className = 'scroll-button scroll-button--right';
+  
+  leftButton.innerHTML = '←';
+  rightButton.innerHTML = '→';
+  
+  leftButton.setAttribute('aria-label', 'Scroll left');
+  rightButton.setAttribute('aria-label', 'Scroll right');
+  
+  navContainer.appendChild(leftButton);
+  navContainer.appendChild(rightButton);
+  
+  const scrollAmount = 200;
+  
+  leftButton.addEventListener('click', () => {
+    navList.scrollBy({
+      left: -scrollAmount,
+      behavior: 'smooth'
+    });
+  });
+  
+  rightButton.addEventListener('click', () => {
+    navList.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  });
+  
+  // Update button visibility based on scroll position
+  function updateScrollButtons() {
+    const isAtStart = navList.scrollLeft <= 0;
+    const isAtEnd = navList.scrollLeft >= navList.scrollWidth - navList.clientWidth - 1;
+    
+    leftButton.classList.toggle('hidden', isAtStart);
+    rightButton.classList.toggle('hidden', isAtEnd);
+  }
+  
+  navList.addEventListener('scroll', updateScrollButtons);
+  window.addEventListener('resize', updateScrollButtons);
+  
+  updateScrollButtons();
 }
