@@ -1,0 +1,70 @@
+$primary-color: #b3b3b3;
+$secondary-color: #5e94cc;
+$bg-dark: #242424;
+$bg-light: #ffffff;
+$button-bg: #1a1a1a;
+$light-button-bg: #f9f9f9;
+
+.time-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+
+  .time {
+    text-align: center;
+
+    .current {
+      &-day {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: $primary-color;
+        margin-bottom: 1rem;
+      }
+
+      &-time {
+        font-size: 3.5rem;
+        font-weight: 600;
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+.waving-hand {
+  display: inline-block;
+  font-size: 2rem;
+  animation: wave 2.5s ease-in-out infinite;
+  transform-origin: 70% 70%;
+  user-select: none;
+  
+  // Optional hover effect
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes wave {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  10% { 
+    transform: rotate(14deg); 
+  }
+  20% { 
+    transform: rotate(-8deg); 
+  }
+  30% { 
+    transform: rotate(14deg); 
+  }
+  40% { 
+    transform: rotate(-4deg); 
+  }
+  50% { 
+    transform: rotate(10deg); 
+  }
+  60%, 100% { 
+    transform: rotate(0deg); 
+  }
+}
