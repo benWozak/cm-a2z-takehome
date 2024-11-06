@@ -1,3 +1,15 @@
+/**
+
+    My compiler warns me that @import is being dropped in favour of using
+    @use and @forward instead. With this change however, it did not carry 
+    over my variables from layout. I have copied them over to this file, 
+    and left this message here in the event that I have run out of time
+    and did not get around to investigating the issue.
+
+    reference: https://sass-lang.com/documentation/breaking-changes/import/
+
+**/
+
 $primary-color: #b3b3b3;
 $secondary-color: #5e94cc;
 $bg-dark: #242424;
